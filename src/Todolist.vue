@@ -10,20 +10,45 @@
     <div>
       <label class="form__label" for="todo">~ my fxxking life ~</label>
       <input class="form__input"
+           placeholder="ready to do~"
            type="text"
-           id="todo"
-           name="to-do"
+           v-model="msg"
            size="30"
            required>
-      <button class="button"><span>Submit</span></button>
+      <button class="button" @click="createSubmit"><span>Submit</span></button>
     </div>
   </form>
   <div>
     <ul class="toDoList">
+      <li v-for="item in todos" :key="item.id">
+        <div class="content">{{ item.content }}</div>
+      </li>
     </ul>
   </div>
 </section>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      msg: '',
+      todos: []
+    }
+  },
+  methods: {
+    createSubmit () {
+      const msg = {
+        id: this.todos.length + 1,
+        content: this.msg,
+        complete: false
+      }
+      this.todos.push(msg)
+      this.msg = ''
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
