@@ -20,8 +20,10 @@
   </form>
   <div>
     <ul class="toDoList">
-      <li v-for="item in todos" :key="item.id">
-        <div class="content">{{ item.content }}</div>
+      <li v-for="(item, index) in todos" :key="item.id">
+        <button class="content" @click="deleteSubmit(item, index)">
+          {{ item.content }}
+        </button>
       </li>
     </ul>
   </div>
@@ -45,6 +47,12 @@ export default {
       }
       this.todos.push(msg)
       this.msg = ''
+    },
+    deleteSubmit (item, index) {
+      const result = confirm(`Delete fxxking life:${item.content}?`)
+      if (result) {
+        this.todos.splice(index, 1)
+      }
     }
   }
 }
@@ -52,6 +60,7 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap');
 
 body {
   background-color: #003366;
@@ -113,7 +122,7 @@ body {
     border-bottom-left-radius:3px 15px;
     border: solid 3px transparent;
     border-bottom: dashed 3px #999933;
-    font-family: 'Gochi Hand', cursive;
+    font-family: 'Fuzzy Bubbles', cursive;
     font-size: 1rem;
     color: hsla(260, 2%, 25%, 0.7);
     width: 70%;
@@ -155,12 +164,15 @@ body {
 }
 .toDoList {
   text-align: left;
-  li {
+  .content{
+    font-family: 'Fuzzy Bubbles', cursive;
     position: relative;
     padding: 0.5rem;
+    border:none;
+    background-color: transparent;
   }
-  li:hover {
-    text-decoration: line-through wavy #24bffb;
+  .content:hover {
+    text-decoration: line-through #336699;
   }
 }
 </style>
